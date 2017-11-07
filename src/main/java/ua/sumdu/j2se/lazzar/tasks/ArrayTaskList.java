@@ -3,39 +3,34 @@ package ua.sumdu.j2se.lazzar.tasks;
 public class ArrayTaskList {
 
     private static Task[] TASKSLIST;
-    private static int SIZE = 0;
 
     void add(Task task) {
         if(size() == 0) {
             TASKSLIST = new Task[] { task };
-            SIZE++;
         } else {
             Task[] newList = new Task[size() + 1];
-            for (int i = 0; i < TASKSLIST.length; i++) {
-                newList[i] = TASKSLIST[i];
-            }
+            System.arraycopy(TASKSLIST, 0, newList, 0, size());
             newList[size()] = task;
             TASKSLIST = newList;
-            SIZE++;
         }
     }
 
     boolean remove(Task task) {
         Integer indexForRemove = null;
-        for (int i = 0; i < TASKSLIST.length; i++) {
+        //getting index for remove
+        for (int i = 0; i < size(); i++) {
             if(task.equals(TASKSLIST[i])) {
                 indexForRemove = i;
                 break;
             }
         }
+        //if equal task not found
         if(indexForRemove == null) return false;
-
+        //removing index
         Task[] newList = new Task[size() - 1];
-        for (int i = 0; i < TASKSLIST.length; i++) {
-
-        }
+        System.arraycopy(TASKSLIST, 0, newList, 0, indexForRemove);
+        System.arraycopy(TASKSLIST, indexForRemove+1, newList, indexForRemove, newList.length - indexForRemove);
         TASKSLIST = newList;
-        SIZE--;
         return true;
     }
 
@@ -43,7 +38,7 @@ public class ArrayTaskList {
         return TASKSLIST[index];
     }
 
-    int size() {
-        return this.size();
+    private int size() {
+        return TASKSLIST.length;
     }
 }
