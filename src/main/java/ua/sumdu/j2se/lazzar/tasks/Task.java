@@ -59,14 +59,14 @@ public class Task {
         } else return 0;
     }
 
-    void setTime(int start, int end, int interval) {
+    public void setTime(int start, int end, int interval) {
         this.time = start;
         this.endTime = end;
         this.interval = interval;
         this.repeated = true;
     }
 
-    boolean isRepeated(){
+    public boolean isRepeated(){
         return this.repeated;
     }
 

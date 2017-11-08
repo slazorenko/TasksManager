@@ -41,4 +41,14 @@ public class ArrayTaskList {
     private int size() {
         return TASKSLIST.length;
     }
+
+    ArrayTaskList incoming(int from, int to) {
+        ArrayTaskList result = new ArrayTaskList();
+        for (Task task : TASKSLIST) {
+            if (task.nextTimeAfter(from) > 0 && task.nextTimeAfter(from) < to) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
 }
