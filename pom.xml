@@ -34,5 +34,10 @@
             <systemPath>C:/Dropbox/Java/java.course.dev/lib/tester.jar</systemPath>
             <type>test-jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations-java5</artifactId>
+            <version>RELEASE</version>
+        </dependency>
     </dependencies>
 </project>

@@ -1,21 +1,27 @@
 package ua.sumdu.j2se.lazzar.tasks;
 
-public class ArrayTaskList {
+public class ArrayTaskList extends TaskList{
 
-    private static Task[] TASKSLIST;
+    private Task[] TASKSLIST;
+    private int delta = 10;
 
-    void add(Task task) {
+    public void add(Task task) {
         if(size() == 0) {
-            TASKSLIST = new Task[] { task };
+            TASKSLIST = new Task[delta];
+            TASKSLIST[0] = task;
+            size++;
         } else {
-            Task[] newList = new Task[size() + 1];
-            System.arraycopy(TASKSLIST, 0, newList, 0, size());
-            newList[size()] = task;
-            TASKSLIST = newList;
+            if (TASKSLIST.length == size()) {
+                Task[] newList = new Task[size() + delta];
+                System.arraycopy(TASKSLIST, 0, newList, 0, size());
+                TASKSLIST = newList;
+            }
+            TASKSLIST[size() + 1] = task;
+            size++;
         }
     }
 
-    boolean remove(Task task) {
+    public boolean remove(Task task) {
         Integer indexForRemove = null;
         //getting index for remove
         for (int i = 0; i < size(); i++) {
@@ -31,24 +37,11 @@ public class ArrayTaskList {
         System.arraycopy(TASKSLIST, 0, newList, 0, indexForRemove);
         System.arraycopy(TASKSLIST, indexForRemove+1, newList, indexForRemove, newList.length - indexForRemove);
         TASKSLIST = newList;
+        size--;
         return true;
     }
 
-    Task getTask(int index) {
+    public Task getTask(int index) {
         return TASKSLIST[index];
-    }
-
-    private int size() {
-        return TASKSLIST.length;
-    }
-
-    ArrayTaskList incoming(int from, int to) {
-        ArrayTaskList result = new ArrayTaskList();
-        for (Task task : TASKSLIST) {
-            if (task.nextTimeAfter(from) > 0 && task.nextTimeAfter(from) < to) {
-                result.add(task);
-            }
-        }
-        return result;
     }
 }

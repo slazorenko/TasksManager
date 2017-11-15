@@ -9,12 +9,20 @@ public class Task {
     private boolean repeated = false;
 
     public Task(String title, int time){
+        if (title.equals("") || time <= 0)
+            throw new IllegalArgumentException("Title and/or start time are wrong");
         this.title = title;
         this.time = time;
     }
 
     public Task(String title, int start, int end, int interval) {
+        //TODO: make checks
+        if (title.equals("") || time <= 0)
+            throw new IllegalArgumentException("Title or start time are wrong");
         this.title = title;
+        this.time = start;
+        this.endTime = end;
+        this.interval = interval;
     }
 
     public String getTitle() {
@@ -25,7 +33,8 @@ public class Task {
         return this.time;
     }
 
-    public void setTime(int time) {
+    public void setTime(int time) throws Exception {
+        if (time <=0) throw new Exception("Wrong time");
         this.repeated = false;
         this.time = time;
     }
@@ -34,7 +43,8 @@ public class Task {
         return this.active;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title) throws Exception {
+        if (title == "" || title == null) throw new Exception("Title is incorrect");
         this.title = title;
     }
 
@@ -59,7 +69,13 @@ public class Task {
         } else return 0;
     }
 
-    public void setTime(int start, int end, int interval) {
+    public void setTime(int start, int end, int interval) throws Exception {
+        StringBuilder message = new StringBuilder().append("Invalid value(s):\r\n");
+        if (start <= 0) message.append("StartTime\r\n");
+        if (end <= 0 || end <= start) message.append("EndTime\r\n");
+        if (interval <= 0) message.append("Interval\r\n");
+        if (message.toString().length() > 21) throw new Exception(message.toString());
+
         this.time = start;
         this.endTime = end;
         this.interval = interval;
